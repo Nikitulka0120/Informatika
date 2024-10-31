@@ -1,5 +1,7 @@
-string = input("Введите отзыв: ")
-splited = string.split(" ")
-for i in range(0,len(splited)-1,1):
-    if splited[i]=="не" and splited[i+1]=="плохой":
-        splited[i]
+otziv = input("Введите отзыв: ")
+
+otziv = otziv.lower().replace("не плохой", "хороший")
+otziv = otziv.lower().replace("не плоха", "хороша")
+otziv = otziv.lower().replace("не плохо", "хорошо")
+
+print("Исправленный отзыв:", otziv)

@@ -1,20 +1,21 @@
 digits = []
 min_digits=[]
 max_digits=[]
-result = list(map(int, digits))
+
 while 1:
     digit = input()
     if digit != "":
-        digits.append(digit)
+        digits.append(int(digit))
     else:
         break
-avg=int(sum(result)/len(result))
-for i in range(len(result)):
-    if result[i]>avg:
-        max_digits.append(result[i])
+
+avg=float(sum(digits)/len(digits))
+for i in range(len(digits)):
+    if digits[i]>avg:
+        max_digits.append(digits[i])
     else:
-        min_digits.append(result[i])
-print(avg)
-print(*max_digits)
-print(min_digits)
+        min_digits.append(digits[i])
+print("AVG ",avg)
+print("Bolshe ",*max_digits)
+print("Menshe",*min_digits)
 

@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from random import randint
-
+sg.theme('DarkPurple')
 layout = [
     [sg.Text("Генератор случайных чисел", justification="center")],
     [sg.Text("Введите нижнюю границу:"), sg.InputText(key="lower")],
@@ -10,7 +10,7 @@ layout = [
     [sg.Image("dice_PNG23.png", size=(1000, 1000), visible=True, key="image_placeholder")],
 ]
 
-sg.theme('GrayGrayGray')
+
 window = sg.Window("Рандом", layout, size=(400, 300), element_justification="center", finalize=True)
 while True:
     event, values = window.read()

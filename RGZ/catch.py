@@ -20,7 +20,7 @@ def catcher():
     blue = (0, 0, 255)
     black = (0, 0, 0)
 
-    fruit_image = pg.image.load("assets/fruit.png")  # Замените на свой путь к изображению
+    fruit_image = pg.image.load("assets/fruit.png")
     fruit_image = pg.transform.scale(fruit_image, (object_width, object_height))
 
     object_x = random.randint(0, 750)
@@ -39,7 +39,7 @@ def catcher():
         player_x = 300
         score = 0
         lives = 3
-        game_started = True  # Устанавливаем флаг game_started в True, чтобы начать игру заново.
+        game_started = True
     
     
 

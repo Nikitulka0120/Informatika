@@ -15,6 +15,7 @@ def sea_game():
     player_matrix = [['.' for _ in range(matrix_size)] for _ in range(matrix_size)]
     secret_matrix = [['.'] * matrix_size for _ in range(matrix_size)]
     bot_matrix = [['.' for _ in range(matrix_size)] for _ in range(matrix_size)]
+    bot_secret_matrix = [['.' for _ in range(matrix_size)] for _ in range(matrix_size)]
     global player_boats_counter, bot_boats_counter
     player_boats_counter = boats
     bot_boats_counter = boats
@@ -48,6 +49,8 @@ def sea_game():
 
     matrix_fill(secret_matrix)
     boats_and_bombs(secret_matrix)
+    matrix_fill(bot_secret_matrix)
+    boats_and_bombs(bot_secret_matrix)
 
     white = (255, 255, 255)
     gray = (169, 169, 169)
@@ -65,26 +68,26 @@ def sea_game():
     def bot_turn():
         global game_status, game_message, player_boats_counter
 
-        while True:
-            i = random.randint(0, matrix_size - 1)
-            j = random.randint(0, matrix_size - 1)
-            if bot_matrix[i][j] == ".":
-                if secret_matrix[i][j] == "K":
-                    bot_matrix[i][j] = "X"
-                    player_boats_counter -= 1
-                    if player_boats_counter == 0:
-                        game_message = "Бот выиграл! Все ваши корабли потоплены."
-                        game_status = False
-                    else:
-                        game_message = "Бот потопил ваш корабль!"
-                elif secret_matrix[i][j] == "V":
-                    bot_matrix[i][j] = ":("
-                    game_message = "Бот попал в вашу бомбу, он проиграл!"
-                    game_status = False
-                else:
-                    bot_matrix[i][j] = "#"
-                    game_message = "Бот промахнулся!"
-                break
+        # while True:
+        #     i = random.randint(0, matrix_size - 1)
+        #     j = random.randint(0, matrix_size - 1)
+        #     if bot_matrix[i][j] == ".":
+        #         if bot_secret_matrix[i][j] == "K":
+        #             bot_matrix[i][j] = "X"
+        #             player_boats_counter -= 1
+        #             if player_boats_counter == 0:
+        #                 game_message = "Бот выиграл! Все ваши корабли потоплены."
+        #                 game_status = False
+        #             else:
+        #                 game_message = "Бот потопил ваш корабль!"
+        #         elif bot_secret_matrix[i][j] == "V":
+        #             bot_matrix[i][j] = ":("
+        #             game_message = "Бот попал в вашу бомбу, он проиграл!"
+        #             game_status = False
+        #         else:
+        #             bot_matrix[i][j] = "#"
+        #             game_message = "Бот промахнулся!"
+        #         break
 
     while running:
         for event in pg.event.get():
@@ -105,6 +108,8 @@ def sea_game():
                     bot_matrix = [['.' for _ in range(matrix_size)] for _ in range(matrix_size)]
                     matrix_fill(secret_matrix)
                     boats_and_bombs(secret_matrix)
+                    matrix_fill(bot_secret_matrix)
+                    boats_and_bombs(bot_secret_matrix)
                     player_boats_counter = boats
                     bot_boats_counter = boats
 
@@ -132,6 +137,22 @@ def sea_game():
                                 bot_turn()
                         else:
                             game_message = "Вы уже стреляли в эту ячейку"
+                    i = random.randint(0, matrix_size - 1)
+                    j = random.randint(0, matrix_size - 1)
+                    if bot_matrix[i][j] == ".":
+                        if bot_secret_matrix[i][j] == "K":
+                            bot_matrix[i][j] = "X"
+                            player_boats_counter -= 1
+                            if player_boats_counter == 0:
+                                game_message = "Бот выиграл! Все ваши корабли потоплены."
+                                game_status = False
+                        elif bot_secret_matrix[i][j] == "V":
+                            bot_matrix[i][j] = ":("
+                            game_message = "Бот попал в вашу бомбу, он проиграл!"
+                            game_status = False
+                        else:
+                            bot_matrix[i][j] = "#"
+                        break
 
         screen.fill(white)
         cell_size = 100
